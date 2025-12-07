@@ -74,7 +74,28 @@ public class Main {
     // ======== 10 REQUIRED METHODS (Students fill these) ========
 
     public static String mostProfitableCommodityInMonth(int month) {
-        return "DUMMY";
+
+        if(month < 0 || month > MONTHS){ //girilen ay geçerlimi onu kontrol et.
+
+            return "INLAVID_MONTH";
+        }
+        int maxP = Integer.MIN_VALUE; //max kar değeri ilk basta en kucuk sec
+        String mostName = ""; //ürün ismi
+
+        for (int i= 0; i<COMMS; i++){
+            int total=  0; //ürünün toplam karını 0 kabul et.
+
+            for(int j =0; j<DAYS; j++){
+                total = total + data[month][i][j]; //ürünün bir ayda toplam karını hesapla.
+            }
+            if (total > maxP){
+                maxP = total;
+                mostName = commodities[i];
+            }
+
+        }
+        return mostName + " " + maxP;
+
     }
 
     public static int totalProfitOnDay(int month, int day) {
