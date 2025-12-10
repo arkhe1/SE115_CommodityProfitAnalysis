@@ -140,7 +140,30 @@ public class Main {
     }
 
     public static int bestDayOfMonth(int month) {
-        return 1234;
+        if(month<0 || month>= MONTHS){
+            return -1;
+        }//ay geçerlimi değilmi kontrol et.
+
+        int max_profit = Integer.MIN_VALUE; //max karı tutcak.
+        int best_day= -1;
+
+        for (int i=0; i<DAYS; i++){ //günleri gezip o günkü ürünlerin karını topla.
+
+            int day_total = 0;
+
+            for(int j=0; j<COMMS; j++){
+
+                day_total = day_total + data[months][j][i];
+            }
+            if(day_total> max_profit){
+                max_profit = day_total;
+                best_day = i + 1 //günler birden basladıgı ıcın bir ekledim.
+
+            }
+            return best_day;
+
+        }
+
     }
 
     public static String bestMonthForCommodity(String comm) {
