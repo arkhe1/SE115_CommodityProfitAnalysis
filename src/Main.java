@@ -153,17 +153,16 @@ public class Main {
 
             for(int j=0; j<COMMS; j++){
 
-                day_total = day_total + data[months][j][i];
+                day_total = day_total + data[month][j][i];
             }
             if(day_total> max_profit){
                 max_profit = day_total;
-                best_day = i + 1 //günler birden basladıgı ıcın bir ekledim.
+                best_day = i + 1;//günler birden basladıgı ıcın bir ekledim.
 
             }
-            return best_day;
 
         }
-
+        return best_day;
     }
 
     public static String bestMonthForCommodity(String comm) {
