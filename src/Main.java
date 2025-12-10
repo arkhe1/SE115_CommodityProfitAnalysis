@@ -166,7 +166,39 @@ public class Main {
     }
 
     public static String bestMonthForCommodity(String comm) {
-        return "DUMMY";
+
+        int comm_index = -1;
+        for (int i = 0; i<COMMS; i++){
+            if (commodities[i].equals(comm)){
+                comm_index = i;
+                break;          //ürünün indexini buldum.
+            }
+        }
+
+        if(comm_index == -1){
+            return "INVALID_COMMODITY"; //ürün bulunmazsa bu hatayı dondurecek.
+        }
+
+        int max_profit = Integer.MIN_VALUE;
+        int best_month_index = -1;
+
+        for (int i=0; i<MONTHS; i++){
+
+            int month_total = 0;
+
+            for(int j = 0; j<DAYS; j++){
+                month_total = month_total + data[i][comm_index][j]; //tüm ayları dolas o aydakı tüm gunlerde o ürün ıcın karı topla
+
+            }
+
+            if(month_total > max_profit){ //monthtotal maxprofitten buyukse ata.
+                max_profit = month_total;
+                best_month_index = i;
+            }
+
+        }
+        return months[best_month_index];// istenileni donduruyoruz en iyi ayı
+
     }
 
     public static int consecutiveLossDays(String comm) {
