@@ -114,7 +114,29 @@ public class Main {
     }
 
     public static int commodityProfitInRange(String commodity, int from, int to) {
-        return 1234;
+        if (from<1 || from>DAYS || to<1 || to>DAYS || from>to){
+            return -99999; //gün aralıgı hatalıysa veya baslangıc bıtısten buyukse hata dondur.
+        }
+
+        int comm_index = -1;
+        for (int i=0; i<COMMS; i++){
+            if(commodities[i].equals(commodity)){
+                comm_index = i;
+                break;
+            }
+        }
+        if (comm_index == -1){ //ürün yoksa hata dondur.
+            return -99999;
+        }
+        int total = 0;
+
+        for ( int i=  0; i<MONTHS; i++){
+            for (int j =from-1; j<to; j++){
+                total = total + data[i][comm_index][j]; //tüm ayları gezıyoruz ve o ay ıcında ıstenen gun aralıgını topluyoruz.
+            }
+        }
+        return total;
+
     }
 
     public static int bestDayOfMonth(int month) {
