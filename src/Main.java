@@ -247,7 +247,29 @@ public class Main {
     }
 
     public static int daysAboveThreshold(String comm, int threshold) {
-        return 1234;
+
+        int comm_index = -1; //ürünün indexini buluyoruz yine
+        for(int i = 0; i<COMMS; i++){
+            if (commodities[i].equals(comm)){
+                comm_index = i;
+                break;
+            }
+        }
+
+        if(comm_index == -1){
+            return -1; //indx hatalıysa -1 döndür.
+        }
+
+        int count = 0; //sayacımız.
+
+        for(int i = 0; i<MONTHS; i++){
+            for(int j =0; j< DAYS; j++){
+                if( data[i][comm_index][j] > threshold){ // //tüm ayları ve gunlerı gezıp eger o gunku kar değerden daha büyükse  sayacı bır arttırıyorum.
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
     public static int biggestDailySwing(int month) {
