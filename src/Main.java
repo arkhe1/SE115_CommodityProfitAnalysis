@@ -273,7 +273,32 @@ public class Main {
     }
 
     public static int biggestDailySwing(int month) {
-        return 1234;
+        if(month <0 || month >=MONTHS){
+            return -99999;  //klasik ay kontrolu geçerlimi değilmi baktım.
+        }
+        int max_swing =0; //en buyuk fark.
+        for (int i = 0; i< DAYS-1; i++){ //days-1 yaptım cunku son gunu kıyaslayacak gun kalmazdı.
+
+            int current_day_total = 0;
+            int next_day_total = 0;
+
+            for (int j =0; j<COMMS; j++){
+                current_day_total = current_day_total + data[month][i][j];
+                next_day_total = next_day_total + data[month][i][j+1]; //j+1 cunku next day!!!
+            }
+            int difference = (next_day_total) - (current_day_total);
+
+
+            if(difference < 0 ){
+                difference = -difference; //burada mutlak değer aldım cunku sonuc eksı cıkarsa aradakı degısımı ıstıyor aslında kod bızden buyuzden.
+            }
+
+            if(difference > max_swing){ //aradakı fark maxswingden buyukse onu ata.
+                max_swing = difference;
+            }
+        }
+        return max_swing;
+
     }
 
     public static String compareTwoCommodities(String c1, String c2) {
