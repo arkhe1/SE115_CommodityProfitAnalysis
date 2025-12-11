@@ -202,7 +202,48 @@ public class Main {
     }
 
     public static int consecutiveLossDays(String comm) {
-        return 1234;
+        //yine ürünün indexini bulduk.
+        int comm_index = -1;
+        for(int i=0; i<COMMS; i++){
+            if(commodities[i].equals(comm)) {
+                comm_index = i;
+                break;
+            }
+
+        }
+
+        if(comm_index ==-1){
+            return -1; //yoksa bunu dondur.
+
+        }
+
+        int max_streak =0;
+        int current_streak = 0;
+
+        for(int i=0; i<MONTHS; i++){ //yılı ayı sırayla gez karı(profiti)bul.
+            for(int j =0; j<DAYS; j++){
+
+                int profit = data[i][comm_index][j];
+
+                if(profit<0){
+                    current_streak++; //karımız sıfırdan kucukse yanı zarardaysak streaki(seriyi) bir arttırıyorm.
+                }else{
+                    if(current_streak > max_streak){
+                        max_streak = current_streak;
+                        //kar edılırse streak bozulur bozulmadan once maksımum streake ulastıkmı onu kontrol ettım atadım..
+                    }
+                    current_streak = 0;
+                }
+
+            }
+
+        }
+
+        if (current_streak > max_streak) {
+            max_streak = current_streak; //eğer hep zarar edersek dongu bıter ama kaydedılmez ondan kontrol edıyorum.
+        }
+        return max_streak;
+
     }
 
     public static int daysAboveThreshold(String comm, int threshold) {
