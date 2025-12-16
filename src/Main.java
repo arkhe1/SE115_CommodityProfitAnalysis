@@ -302,7 +302,46 @@ public class Main {
     }
 
     public static String compareTwoCommodities(String c1, String c2) {
-        return "DUMMY is better by 1234";
+        int index1=  -1;    //ilk urunun ındexını buldum.
+        for(int i=0; i<COMMS; i++){
+            if(commodities[i].equals(c1)){
+                index1 = i;
+                break;
+            }
+        }
+        int index2 = -1;  // buradada ıkıncı urunun ındexını buluyoruz.
+         for (int i=0;i<COMMS;i++){
+            if(commodities[i].equals(c2)){
+                index2 =i;
+                break;
+            }
+        }
+
+         if (index1 ==-1 || index2 ==-1){ //urunler gecersızse ınvalıd commıdıtı dondurucez.
+             return "INVALID_COMMODITY";
+         }
+
+         int total1 =0;
+         int total2 =0;
+
+         for (int i=0; i<MONTHS; i++){ // iki ürünün yıllık toplam karının hesaplaması.
+             for(int j =0; j<DAYS; j++){
+                 total1 = total1 + data[i][index1][j];
+                 total2 = total2 + data[i][index2][j];
+
+             }
+         }
+         if(total1> total2){
+             int difference = total2 -total1;
+             return c1 + "is better by" + difference; //c1 daha fazla dıye karsılastırıyoruz 2 urunu
+         }
+
+         else if(total2>total1){
+             int difference = total2 - total1;
+             return c2 + "is better by " + difference; //buradada c2 nın fazla oldugu durumu donduruypr.
+        }else{
+             return "Equal";
+         }
     }
 
     public static String bestWeekOfMonth(int month) {
