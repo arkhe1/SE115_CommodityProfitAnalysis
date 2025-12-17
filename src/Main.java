@@ -345,7 +345,33 @@ public class Main {
     }
 
     public static String bestWeekOfMonth(int month) {
-        return "DUMMY";
+        if (month <0 || month >= MONTHS) {
+            return "INVALID_MONTH"; //ayı kontrol ettım gecersızde bunu dondurucek.
+        }
+
+        int max_profit = Integer.MIN_VALUE; //en yuksek karı tutan degıskenım
+        int best_week = -1; //en iyi haftanın numarası
+
+        for(int i= 1; i<=4; i++){
+            int start_day = (i-1) *7;
+            int end_day = start_day + 7; //burada haftanın baslangıc ve bıtıs gun ındexlerını hesaplıyorum
+            //ilk hafta 0-7 gunn arası ıkıncı hafta 7-14 gun arası. gibi
+            int current_week_total = 0;
+
+            for(int j= start_day; j< end_day; j++){ //o haftanın gunlerını topla
+                //o gundekı tum urunlerı topla
+                for(int k=0; k<COMMS; k++){
+                    current_week_total = current_week_total + data[month][k][j];
+                }
+            }
+
+            if(current_week_total > max_profit){
+                max_profit = current_week_total;
+                best_week = i;
+            }
+        }
+        return "Week " + best_week;
+
     }
 
     public static void main(String[] args) {
