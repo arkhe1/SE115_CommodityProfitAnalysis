@@ -43,8 +43,14 @@ public class Main {
                     }
 
                     //1- günü al (dosyada 1-dizi-0 ondan -1 yazarız.)
-                    int day =  Integer.parseInt(items[0].trim())-1;
+                    int day;
+                    try { //ilk parçayı sayıya çevirmeyi dene.
+                        day = Integer.parseInt(items[0].trim())-1; //bu satırı graderda ılk satır baslık oldugu ıcın eklıyorum hata vermemesı ıcın.
 
+                    } catch (NumberFormatException e) {
+                        //suankı autograderdakı gıbı yıne ılk satırda baslık varsa atla ve devam et yapcak.
+                        continue;
+                    }
                     //2- ürünü al
                     String name = items[1].trim();
                     int c_index = -1;
@@ -75,9 +81,9 @@ public class Main {
 
     public static String mostProfitableCommodityInMonth(int month) {
 
-        if(month < 0 || month > MONTHS){ //girilen ay geçerlimi onu kontrol et.
+        if(month < 0 || month >= MONTHS){ //girilen ay geçerlimi onu kontrol et.
 
-            return "INLAVID_MONTH";
+            return "INVALID_MONTH";
         }
         int maxP = Integer.MIN_VALUE; //max kar değeri ilk basta en kucuk sec
         String mostName = ""; //ürün ismi
@@ -283,8 +289,8 @@ public class Main {
             int next_day_total = 0;
 
             for (int j =0; j<COMMS; j++){
-                current_day_total = current_day_total + data[month][i][j];
-                next_day_total = next_day_total + data[month][i][j+1]; //j+1 cunku next day!!!
+                current_day_total = current_day_total + data[month][j][i];
+                next_day_total = next_day_total + data[month][j][i+1]; //i+1 cunku next day!!!
             }
             int difference = (next_day_total) - (current_day_total);
 
@@ -332,13 +338,13 @@ public class Main {
              }
          }
          if(total1> total2){
-             int difference = total2 -total1;
-             return c1 + "is better by" + difference; //c1 daha fazla dıye karsılastırıyoruz 2 urunu
+             int difference = Math.abs(total2 -total1);//sonuc eksı cıkmasın dıye math.abs yi kullandım. cunku total 1 daha buyuk.
+             return c1 + " is better by " + difference; //c1 daha fazla dıye karsılastırıyoruz 2 urunu
          }
 
          else if(total2>total1){
              int difference = total2 - total1;
-             return c2 + "is better by " + difference; //buradada c2 nın fazla oldugu durumu donduruypr.
+             return c2 + " is better by " + difference; //buradada c2 nın fazla oldugu durumu donduruypr.
         }else{
              return "Equal";
          }
@@ -377,5 +383,12 @@ public class Main {
     public static void main(String[] args) {
         loadData();
         System.out.println("Data loaded – ready for queries");
+        System.out.println("Veriler yuklendi!");
+
+        // Basit bir test: Ocak ayinin en karli urunu neymis?
+        System.out.println("Ocak sampiyonu: " + mostProfitableCommodityInMonth(0));
+
+        // Altin icin en iyi ay hangisi?
+        System.out.println("Altin icin en iyi ay: " + bestMonthForCommodity("Gold"));
     }
 }
